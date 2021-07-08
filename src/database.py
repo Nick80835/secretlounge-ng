@@ -286,7 +286,10 @@ class SQLiteDatabase(Database):
 	def _userFromRow(r):
 		user = User()
 		for prop in r.keys():
-			setattr(user, prop, r[prop])
+			try:
+				setattr(user, prop, r[prop])
+			except AttributeError:
+				pass
 		return user
 	def _ensure_schema(self):
 		def row_exists(table, name):
